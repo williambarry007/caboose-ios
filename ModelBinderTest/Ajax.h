@@ -10,9 +10,9 @@
 
 @interface Ajax : NSObject
 
-+ (void)get:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s;
-+ (void)post:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s;
-+ (void)put:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s;
-+ (void)delete:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s;
++ (void)get:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s;
++ (void)post:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s;
++ (void)put:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s;
++ (void)delete:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s;
 
 @end

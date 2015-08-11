@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BoundTextField.h"
-#import "ModelBinder.h"
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, strong) ModelBinder *mb;
 @property (weak, nonatomic) IBOutlet BoundTextField *tfFirstName;
 @property (weak, nonatomic) IBOutlet BoundTextField *tfLastName;
 @property (weak, nonatomic) IBOutlet BoundTextField *tfEmail;

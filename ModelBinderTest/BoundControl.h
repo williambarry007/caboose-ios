@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelBinder.h"
+
+// CHANGED -- Made this a forward declaration
+#import "BoundObject.h"
 
 @protocol BoundControl
 
-@property (nonatomic, strong) ModelBinder *modelBinder;
+@property (nonatomic, strong) id boundObject;
+@property (nonatomic, strong) NSString *boundName;
 
--(void)setEvents;
+- (void)bindToObject:(NSObject <BoundObject>*)obj boundName:(NSString *)name;
 
 @end

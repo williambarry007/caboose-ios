@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "User.h"
 
 @interface ViewController ()
 
@@ -18,16 +19,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
-                       self.tfFirstName , @"first_name",
-                       self.tfLastName  , @"last_name",
-                       self.tfEmail     , @"email",
-                       nil];
-    self.mb = [[ModelBinder alloc] initWithName:@"User"
-                                        modelId:23
-                                        baseUrl:[NSString stringWithFormat:@"/api/users/%d", 23]
-                                     attributes:d
-                                 viewController:self];
+    User *bob = [[User alloc] init];
+    bob.firstName = @"Bob";
+    bob.lastName = @"Jones";
+    bob.email = @"bjones@gmail.com";
+    bob.userId = 23;
+    
+    [self.tfFirstName bindToObject:bob boundName:@"firstName"];
+    [self.tfLastName bindToObject:bob boundName:@"lastName"];
+    [self.tfEmail bindToObject:bob boundName:@"email"];
 }
 
 - (void)didReceiveMemoryWarning {

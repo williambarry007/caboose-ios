@@ -8,28 +8,51 @@
 
 #import "User.h"
 #import "Ajax.h"
+#import "AppDelegate.h"
+
+#define APPDELEGATE ((AppDelegate*)[UIApplication sharedApplication].delegate)
 
 @implementation User
 
 @synthesize userId, firstName, lastName, email;
 
-- (NSString *)resourcePath
+- (BOOL)saveValue:(id)val forProperty:(NSString *)prop
 {
-    return [NSString stringWithFormat:@"/users/%d", self.userId];
-}
-
-- (BOOL)saveProperty:(NSString *)propertyName value:(id)val
-{
-    [self setValue:val forKey:propertyName];
-    NSString *url = [NSString stringWithFormat:@"https://repconnex.com/api/%@", self.resourcePath];
-    NSDictionary *d = [NSDictionary dictionaryWithObject:val forKey:propertyName];
-    [Ajax put:url data:d delegate:self success:@"savePropertyResponse:"];
+    [self setValue:val forKey:prop];
+    NSString *url = [NSString stringWithFormat:@"%@%@", APPDELEGATE.baseUrl, [self updateUrl:prop]];
+    NSDictionary *d = [NSDictionary dictionaryWithObject:val forKey:[User remoteName:prop]];
+    [Ajax put:url data:d delegate:self success:@selector(saveValueResponse:)];
     return true;
 }
 
-- (void)savePropertyResponse:(NSDictionary *)resp
+- (void)saveValueResponse:(NSDictionary *)resp
 {
     
+}
+
+// BoundObject implementation
+
+- (int)modelId
+{
+    return self.userId;
+}
+
+- (NSString *)getUrl                      { return [NSString stringWithFormat:@"/api/users/%d", self.userId]; }
+- (NSString *)addUrl                      { return @"/api/users"; }
+- (NSString *)updateUrl:(NSString *)prop  { return [NSString stringWithFormat:@"/api/users/%d", self.userId]; }
+- (NSString *)deleteUrl                   { return [NSString stringWithFormat:@"/api/users/%d", self.userId]; }
+
+- (NSString *)getVerb                     { return @"get"; }
+- (NSString *)addVerb                     { return @"post"; }
+- (NSString *)updateVerb:(NSString *)prop { return @"put"; }
+- (NSString *)deleteVerb                  { return @"delete"; }
+
++ (NSString *)remoteName:(NSString *)prop
+{
+    if ([prop isEqualToString:@"firstName"]) return @"first_name";
+    if ([prop isEqualToString:@"lastName"]) return @"last_name";
+    if ([prop isEqualToString:@"email"]) return @"email";
+    return @"";
 }
 
 @end

@@ -11,46 +11,46 @@
 
 @implementation Ajax
 
-+ (void)get:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s
++ (void)get:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager GET:url
       parameters:data
-         success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:NSSelectorFromString(s) withObject:resp]; }
+         success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:s withObject:resp]; }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) { NSLog(@"Error: %@", error); }
      ];
 }
 
-+ (void)post:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s
++ (void)post:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager POST:url
        parameters:data
-          success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:NSSelectorFromString(s) withObject:resp]; }
+          success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:s withObject:resp]; }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) { NSLog(@"Error: %@", error); }
      ];
 }
 
-+ (void)put:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s
++ (void)put:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager PUT:url
       parameters:data
-         success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:NSSelectorFromString(s) withObject:resp]; }
+         success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:s withObject:resp]; }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) { NSLog(@"Error: %@", error); }
      ];
 }
 
-+ (void)delete:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(NSString *)s
++ (void)delete:(NSString *)url data:(NSDictionary *)data delegate:(NSObject *)d success:(SEL)s
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager DELETE:url
          parameters:data
-            success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:NSSelectorFromString(s) withObject:resp]; }
+            success:^(AFHTTPRequestOperation *operation, id resp) { [d performSelector:s withObject:resp]; }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) { NSLog(@"Error: %@", error); }
      ];
 }

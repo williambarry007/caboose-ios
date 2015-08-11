@@ -6,35 +6,25 @@
 //  Copyright (c) 2015 The Nine. All rights reserved.
 //
 
+#import "BoundObject.h"
 #import "BoundTextField.h"
+#import "Ajax.h"
 
 @implementation BoundTextField
 
-@synthesize boundObject, boundProperty;
+// CHANGED -- Now synthesizing modelBinder
+@synthesize boundObject, boundName;
 
-- (void)fieldEditingChanged:(id)sender {
-    [self sendActionsForControlEvents:UIControlEventEditingChanged];
-    [self pushToBoundObject];
-}
-
-- (void)pullFromBoundObject {
-    self.text = [self.boundObject valueForKey:self.boundProperty];
-}
-
-- (void)pushToBoundObject {
-    [self.boundObject setValue:self.textField.text forKey:self.boundProperty];
-}
-
-- (void)setEvents
+- (void)bindToObject:(NSObject<BoundObject> *)obj boundName:(NSString *)name
 {
-    [self addTarget:self action:@selector(textFieldDidAppear) forControlEvents:UIControlEvent
-    [self addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
+    self.boundObject = obj;
+    self.boundName = name;
+    [self addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingDidEnd];
 }
 
 - (void)textFieldDidChange:(BoundTextField *)tf
 {
-    
-    
+    [self.boundObject saveValue:self.text forProperty:self.boundName];
 }
 
 @end

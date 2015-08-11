@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BoundObject.h"
 
-@interface User : NSObject
+@interface User : NSObject <BoundObject>
 
 @property (nonatomic, assign) int userId;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *email;
 
-- (NSString *)resourcePath;
-- (BOOL)saveProperty:(NSString *)propertyName value:(id)val;
-- (void)savePropertyResponse:(NSDictionary *)resp;
+- (void)saveValueResponse:(NSDictionary *)resp;
 
 @end
